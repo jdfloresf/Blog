@@ -30,9 +30,9 @@
                         <div class="card-favoritos-body">
                             <h3 class="card-favoritos-body-titulo">{{ entrada.entry.title }}</h3>
                             <p class="card-favoritos-body-text">{{ entrada.entry.resume }}</p>
-                            <form class="card-favoritos-body-actions" method="POST" action="{% url 'favoritos_app:delete-fav' entrada.id %}">
+                            <form class="card-favoritos-body-actions" method="POST" action="{% url 'favoritos_app:delete-fav' entrada.slug %}">
                                 {% csrf_token %}
-                                <a class="button warning" href="{% url 'entrada_app:entradas-detail' entrada.id %}">Ver</a>
+                                <a class="button warning" href="{% url 'entrada_app:entradas-detail' entrada.slug %}">Ver</a>
                                 <button type="submit" class="button alert">Eliminar</button>
                             </form>
                         </div>

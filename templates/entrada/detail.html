@@ -3,6 +3,19 @@
 
 {% load  static %}
 
+{% block title %}
+    {{ entrada.title }}
+{% endblock title %}
+
+{% block description %}
+    <meta name="description" content="{{ entrada.resume }}">
+{% endblock description %}
+
+{% block tags %}
+      <meta name="keywords" content="{% for tag in entrada.tag.all %} {{ tag.name }}, {% endfor %}">
+{% endblock tags %}
+    
+
 {% block content %}
 
 {% include "includes/header.html" %}
@@ -28,7 +41,7 @@
             <div class="card" style="width: 100%;">
                 <img src="{{ entrada.image.url }}">
                 <div class="card-section" style="width: 100%;">
-                  <form class="blog-action" method="POST" action="{% url 'favoritos_app:add-fav' entrada.id %}">
+                  <form class="blog-action" method="POST" action="{% url 'favoritos_app:add-fav' entrada.slug %}">
                     {% csrf_token %}
                     <button type="submit" class="button alert">Agregar a Favoritos</button>
                   </form>

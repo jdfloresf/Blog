@@ -1,5 +1,9 @@
+from datetime import datetime, timedelta
+
 from django.db import models
+from django.urls import reverse_lazy
 from django.conf import settings
+from django.template.defaultfilters import slugify
 
 from model_utils.models import TimeStampedModel
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -7,7 +11,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # Managers
 from .managers import EntryManager
 
-# Create your models here.
 
 class Category(TimeStampedModel):
     """Categorias de una entraga
@@ -61,4 +64,25 @@ class Entry(TimeStampedModel):
     def __str__(self) -> str:
         return self.title
     
+    def get_absolute_url(self):
+        return reverse_lazy(
+                'entrada_app:entradas-detail',
+                kwargs={
+                    'slug': self.slug
+                }
+            )
+    
+    def save(self, *args, **kwargs):
+        # Calcular el total de segundos de la horaactual
+        now = datetime.now()
+        total_time = timedelta(
+            hours = now.hour,
+            minutes = now.minute,
+            seconds = now.second
+        )
+        seconds = int(total_time.total_seconds())
+        slug_unique = '%s %s' % (self.title, str(seconds))
 
+        self.slug = slugify(slug_unique)
+
+        super(Entry, self).save(*args, **kwargs)
