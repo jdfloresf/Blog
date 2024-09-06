@@ -41,7 +41,7 @@ class Entry(TimeStampedModel):
     """Modelo para las entradas o articulos"""
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    caegory = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag)
     title = models.CharField('Titulo', max_length=200)
     resume = models.TextField('Resume')

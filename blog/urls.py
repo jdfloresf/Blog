@@ -10,6 +10,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('', include('apps.users.urls')),
     re_path('', include('apps.home.urls')),
+    re_path('', include('apps.entrada.urls')),
+    re_path('', include('apps.favoritos.urls')),
 
     # urls para ckeditor
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),

@@ -12,7 +12,7 @@ from django.views.generic import (
 from apps.entrada.models import Entry
 from .models import Home
 
-from .forms import SuscribersForm
+from .forms import SuscribersForm, ContactForm
 
 class HomePageView(TemplateView):
     template_name = "home/index.html"
@@ -48,4 +48,9 @@ class HomePageView(TemplateView):
             context["suscripcion"] = form
             return self.render_to_response(context)
     
+
+
+class ContactCreateView(CreateView):
+    form_class = ContactForm
+    success_url = '.'
 
